@@ -8,6 +8,23 @@
     <h:outputStylesheet name="css/mycsslayout.css"/>
     <h:outputScript name="js/script.js" target="head"/>
     <title>Conversation</title>
+    <script type="text/javascript">
+        let socket = new WebSocket("ws://localhost:8080/nom-de-ton-projet/chat");
+
+        socket.onmessage = function(event) {
+            const textarea = document.getElementById("form:conversation");
+            textarea.value += "\n" + event.data;
+        };
+
+        socket.onopen = function() {
+            console.log("WebSocket connecté");
+        };
+
+        socket.onclose = function() {
+            console.log("WebSocket fermé");
+        };
+    </script>
+
 </h:head>
 <h:body>
     <f:view>
